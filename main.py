@@ -132,7 +132,8 @@ pipe_height = [400,600,800]
 
 Hintergrund_Musik  = pygame.mixer.Sound('assets/Start_Waifu.wav')
 Hintergrund_Musik.set_volume(0.1)
-Sprung_Sound = pygame.mixer.Sound('flap')
+Sprung_Sound = pygame.mixer.Sound('sound/sfx_wing.wav')
+Sprung_Sound.set_volume(0.15)
 # Wenn das Programm startet, dann ausfuehren
 # Spielanzeige Loop
 while True:
@@ -151,7 +152,8 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and Aktives_Spiel == True:
                 Waifu_Bewegung = 0
-                Waifu_Bewegung -= 10// #Höhe der Sprünge von Waifu"
+                Waifu_Bewegung -= 10 #Höhe der Sprünge von Waifu"
+                Sprung_Sound.play()
                 
 
 
