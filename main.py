@@ -47,7 +47,7 @@ def draw_pipes(pipes):
 
 
 # ____________________________________________________________________________________________________
-# Wenn Waifu gegen Hindernis oder Boden/Decke fliegt, wird Game Inactive gesetzt
+# Wenn Waifu gegen Hindernis  fliegt, wird Game Inactive gesetzt
 def check_collision(pipes):
     for pipe in pipes:
         if Waifu_Hitbox.colliderect(pipe):
@@ -55,7 +55,7 @@ def check_collision(pipes):
             Hintergrund_Musik.stop()
             return False
         
-
+# Wenn Waifu gegen Boden/Decke fliegt, wird Game Inactive gesetzt
     if Waifu_Hitbox.top <= -100 or Waifu_Hitbox.bottom >= 900:
         print("coll bottom or top")
         Hintergrund_Musik.stop()
@@ -79,11 +79,30 @@ def Test_Index():
     print("Index changed to" + Waifu_Index)
 
 # ____________________________________________________________________________________________________
-def score_display():
-    Punkte_Tafel =  Spieltext.render('Punkte: ' + str(Punkte),True,(0,0,0)) # Punkte in der Farbe XX in dem Textstil des Spieles
-    Punkte_posi = Punkte_Tafel.get_rect(center= (288,100)) # Positionierung der Punkte
-    Bildschirm.blit(Punkte_Tafel, Punkte_posi)
+#Zeichnen der Spielpunkte und Highscores im Spiel und im Menu
+def score_display(Umgebung):
+    if Umgebung == 'Spiel':
+        Punkte_Tafel =  Spieltext.render('Punkte: ' + str(int(Punkte)),True,(0,0,0)) # Punkte in der Farbe XX in dem Textstil des Spieles
+        Punkte_posi = Punkte_Tafel.get_rect(center= (288,100)) # Positionierung der Punkte
+        Bildschirm.blit(Punkte_Tafel, Punkte_posi)
+    if Umgebung == 'Menu':
+        Punkte_Tafel =  Spieltext.render('Punkte: ' + str(int(Punkte)),True,(0,0,0)) # Punkte in der Farbe XX in dem Textstil des Spieles
+        Punkte_posi = Punkte_Tafel.get_rect(center= (288,100)) # Positionierung der Punkte
+        Bildschirm.blit(Punkte_Tafel, Punkte_posi)
+
+        Highscore_Tafel = Spieltext.render('Highscore: '+  str(int(Highscore_Punkte)),True,(0,0,0))
+        Highscore_posi = Highscore_Tafel.get_rect(center= (288,150)) # Positionierung der Punkte
+        Bildschirm.blit(Highscore_Tafel, Highscore_posi)
+    
 # ____________________________________________________________________________________________________
+
+def score_update(Punkte,Highscore_Punkte):
+    if Punkte > Highscore_Punkte:
+        Highscore_Punkte = Punkte
+    return Highscore_Punkte
+
+
+
 
 
 # Initialisierung pygame
@@ -93,7 +112,7 @@ Bildschirm = pygame.display.set_mode((576, 1024))  ### 1200,1000 später ###
 # Definieren des Tickers für die Framerate
 Framerate = pygame.time.Clock()
 #Textfont 
-Spieltext = pygame.font.Font("04b_19.ttf",50) # TTF-Format,Groesse
+Spieltext = pygame.font.Font("Stay_and_Shine.ttf",50) # Spiele Textstil festlegen als TTF-Format,Groesse
 # ____________________________________________________________________________________________________
 
 
@@ -102,6 +121,7 @@ Schwerkraft = 0.2
 Waifu_Bewegung = 0
 Aktives_Spiel = False
 Punkte = 0
+Highscore_Punkte = 0
 # ____________________________________________________________________________________________________
 
 
@@ -135,7 +155,10 @@ pipe_list = []
 SPAWNPIPE = pygame.USEREVENT
 pygame.time.set_timer(SPAWNPIPE, 2000) # Hindernis, Spawnrate in Millisekunde
 
-pipe_height = [400,600,800]
+pipe_height = [400,600,800] # Höhe bzw. Positionen auf der Y Achse der Hindernisse
+
+Game_Over_Screen = pygame.transform.scale2x(pygame.image.load('assets/message.png')).convert_alpha() # Menubild anzeigen
+Game_Over_Hitbox = Game_Over_Screen.get_rect(center = (288,512)) # Position des Menubildes.
 # ____________________________________________________________________________________________________
 #Musik und Sound einfügen
 Hintergrund_Musik  = pygame.mixer.Sound('assets/Start_Waifu.wav')
@@ -170,32 +193,25 @@ while True:
 
                 #Spring Animation
                 if Waifu_Index < 1:
-                    print(0)
-
                     Waifu_Sprung = pygame.time.get_ticks()
                     
                     Waifu_Index += 1
                     Waifu_Bild = Waifu_Bildliste[Waifu_Index]
                 else: 
-                    print(1)
                     Waifu_Bild = Waifu_Bildliste[Waifu_Index]
                     Waifu_Index = 0
                 
-
-                
-                
-                
-                
                 
 
                 
-            if event.key == pygame.K_SPACE and Aktives_Spiel == False:
+            if event.key == pygame.K_SPACE and Aktives_Spiel == False: # Spiel Neustart
                 Hintergrund_Musik.play()
                 Aktives_Spiel = True
                 pipe_list.clear()
                 Waifu_Hitbox.center = (100, 512)
                 Waifu_Bewegung = 0
-                Waifu_Index = 0
+                Waifu_Index = 0 # evtl ändern / rausnehmen wenn keine Animation
+                Punkte = 0
                 
 
         # Generierung eines neues Hindernisses durch den "Timer"
@@ -227,7 +243,19 @@ while True:
         # Hindernisse nach links laufen lassen
         pipe_list = move_pipes(pipe_list)
         draw_pipes(pipe_list)
-        score_display()
+
+        #Punkte hochzählen
+        Punkte += 0.0045
+        #Darstellen derzeitige Punktzahl
+        score_display('Spiel')
+    else:
+        #Game Over Screen anzeigen
+        Bildschirm.blit(Game_Over_Screen, Game_Over_Hitbox)
+        #Ausführen Funktion score_update
+        Highscore_Punkte = score_update(Punkte, Highscore_Punkte)
+        #Darstellen Punktzahl im Menu
+        score_display('Menu')
+    
 
     
 # ____________________________________________________________________________________________________
