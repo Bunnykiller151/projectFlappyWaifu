@@ -8,7 +8,8 @@ import time
 import random
 # ____________________________________________________________________________________________________
 
-
+#Initialisieren des Soundmixers
+pygame.mixer.init(48000, -16, 1, 1024)
 
 # Funktion, die den Bildschirm loopt
 def Vordergrund_Bewegung():
@@ -51,13 +52,15 @@ def check_collision(pipes):
     for pipe in pipes:
         if Waifu_Hitbox.colliderect(pipe):
             print("coll pipe")
+            Hintergrund_Musik.stop()
             return False
         
 
     if Waifu_Hitbox.top <= -100 or Waifu_Hitbox.bottom >= 900:
         print("coll bottom or top")
+        Hintergrund_Musik.stop()
         return False
-
+        
     return True
 
 
@@ -101,8 +104,10 @@ Vordergrund = pygame.transform.scale2x(pygame.image.load('assets/base.png').conv
 Vordergrund_Start = 0
 # ____________________________________________________________________________________________________
 # Laden und vergroessern des Spielers
-Waifu_Bildrunter = pygame.transform.scale2x(pygame.image.load('assets/bluebird-downflap.png').convert_alpha())
-Waifu_Bildhoch = pygame.transform.scale2x(pygame.image.load('assets/redbird-upflap.png').convert_alpha())
+Waifu_Bildrunter = pygame.image.load('assets/Waifu_cut_test2.png')
+Waifu_Bildrunter = pygame.transform.scale(Waifu_Bildrunter,(68,68)).convert_alpha()
+Waifu_Bildhoch = pygame.image.load('assets/Waifu_cut_test2.png')
+Waifu_Bildhoch = pygame.transform.scale(Waifu_Bildrunter,(68,68)).convert_alpha()
 Waifu_Bildliste = [Waifu_Bildrunter,Waifu_Bildhoch]
 Waifu_Index = 0
 Waifu_Bild = Waifu_Bildliste[Waifu_Index]
@@ -125,8 +130,8 @@ pygame.time.set_timer(SPAWNPIPE, 1200)
 pipe_height = [400,600,800]
 # ____________________________________________________________________________________________________
 
-Hintergrund_Musik  = pygame.mixer.Sound('musik_Waifu.mp3')
-
+Hintergrund_Musik  = pygame.mixer.Sound('assets/Start_Waifu.wav')
+Hintergrund_Musik.set_volume(0.1)
 # Wenn das Programm startet, dann ausfuehren
 # Spielanzeige Loop
 while True:
@@ -145,7 +150,7 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and Aktives_Spiel == True:
                 Waifu_Bewegung = 0
-                Waifu_Bewegung -= 10 #Höhe der Sprünge von Waifu"
+                Waifu_Bewegung -= 6 #Höhe der Sprünge von Waifu"
                 
 
 
@@ -172,12 +177,13 @@ while True:
 
                 
             if event.key == pygame.K_SPACE and Aktives_Spiel == False:
+                Hintergrund_Musik.play()
                 Aktives_Spiel = True
                 pipe_list.clear()
                 Waifu_Hitbox.center = (100, 512)
                 Waifu_Bewegung = 0
                 Waifu_Index = 0
-                Hintergrund_Musik.play()
+                
 
         # Generierung eines neues Hindernisses durch den "Timer"
         if event.type == SPAWNPIPE:
@@ -195,7 +201,9 @@ while True:
 
     
     if Aktives_Spiel == True:
+
         # Waifu Interaktionen nach unten und oben
+        
         Waifu_Bewegung += Schwerkraft
         Waifu_Rotiert = Waifu_Rotation(Waifu_Bild)
         Waifu_Hitbox.centery += Waifu_Bewegung
