@@ -132,6 +132,7 @@ pipe_height = [400,600,800]
 
 Hintergrund_Musik  = pygame.mixer.Sound('assets/Start_Waifu.wav')
 Hintergrund_Musik.set_volume(0.1)
+Sprung_Sound = pygame.mixer.Sound('flap')
 # Wenn das Programm startet, dann ausfuehren
 # Spielanzeige Loop
 while True:
