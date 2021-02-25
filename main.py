@@ -2,9 +2,9 @@
 import pygame
 # Bibliothek sys importieren
 import sys
-#Importiere Time Libary 
+# Importiere Time Libary 
 import time
-#Importiere Random Libary 
+# Importiere Random Libary 
 import random
 # ____________________________________________________________________________________________________
 
@@ -34,22 +34,46 @@ def move_pipes(pipes):
 # ____________________________________________________________________________________________________
 
 
-# Hindernisse werden gezeichnet auf der Canvas Bildschirm
+# Hindernisse werden gezeichnet auf der Canvas Bildschirm, durch die flip_pipe funktion wird das Hindernis um 180° gedreht
 def draw_pipes(pipes):
     for pipe in pipes:
         if pipe.bottom >= 1024:
-            Hintergrund.blit(pipe_surface, pipe)
+            Bildschirm.blit(pipe_surface, pipe)
         else:
             flip_pipe = pygame.transform.flip(pipe_surface, False, True)
-            Hintergrund.blit(flip_pipe,pipe)
+            Bildschirm.blit(flip_pipe,pipe)
 
 
 
 # ____________________________________________________________________________________________________
+# Wenn Waifu gegen Hindernis oder Boden/Decke fliegt, wird Game Inactive gesetzt
 def check_collision(pipes):
     for pipe in pipes:
         if Waifu_Hitbox.colliderect(pipe):
+            print("coll pipe")
+            return False
+        
 
+    if Waifu_Hitbox.top <= -100 or Waifu_Hitbox.bottom >= 900:
+        print("coll bottom or top")
+        return False
+
+    return True
+
+
+
+# ____________________________________________________________________________________________________
+#Bewegung von Waifu beim springen/fallen
+def Waifu_Rotation(Waifu):
+    new_Waifu = pygame.transform.rotozoom(Waifu, -Waifu_Bewegung *5, 1)
+    return new_Waifu
+
+
+
+# ____________________________________________________________________________________________________
+def Test_Index():
+    
+    print("Index changed to" + Waifu_Index)
 
 # ____________________________________________________________________________________________________
 
@@ -66,6 +90,7 @@ Framerate = pygame.time.Clock()
 # Game Variablen
 Schwerkraft = 0.2
 Waifu_Bewegung = 0
+Aktives_Spiel = True
 # ____________________________________________________________________________________________________
 
 
@@ -75,12 +100,16 @@ Vordergrund = pygame.transform.scale2x(pygame.image.load('assets/base.png').conv
 # Definition von Bewegungsmodifikator
 Vordergrund_Start = 0
 # ____________________________________________________________________________________________________
-
-
 # Laden und vergroessern des Spielers
-Waifu_Bild = pygame.transform.scale2x(pygame.image.load('assets/bluebird-midflap.png').convert())
-# Rechteck um Waifu Bild
-Waifu_Hitbox = Waifu_Bild.get_rect(center=(100, 512))
+Waifu_Bildrunter = pygame.transform.scale2x(pygame.image.load('assets/bluebird-downflap.png').convert_alpha())
+Waifu_Bildhoch = pygame.transform.scale2x(pygame.image.load('assets/redbird-upflap.png').convert_alpha())
+Waifu_Bildliste = [Waifu_Bildrunter,Waifu_Bildhoch]
+Waifu_Index = 0
+Waifu_Bild = Waifu_Bildliste[Waifu_Index]
+Waifu_Hitbox = Waifu_Bild.get_rect(center=(100, 512))# Rechteck um Waifu Bild
+
+
+
 # ____________________________________________________________________________________________________
 
 
@@ -96,6 +125,7 @@ pygame.time.set_timer(SPAWNPIPE, 1200)
 pipe_height = [400,600,800]
 # ____________________________________________________________________________________________________
 
+Hintergrund_Musik  = pygame.mixer.Sound('musik_Waifu.mp3')
 
 # Wenn das Programm startet, dann ausfuehren
 # Spielanzeige Loop
@@ -113,31 +143,75 @@ while True:
 
         # Wenn Space gedrückt wird, springt Waifu
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
+            if event.key == pygame.K_SPACE and Aktives_Spiel == True:
                 Waifu_Bewegung = 0
-                Waifu_Bewegung -= 13
+                Waifu_Bewegung -= 10 #Höhe der Sprünge von Waifu"
+                
 
-        # Generierung eines neues Hinderniss durch den "Timer"
+
+
+                #Spring Animation
+                if Waifu_Index < 1:
+                    print(0)
+
+                    Waifu_Sprung = pygame.time.get_ticks()
+                    
+                    Waifu_Index += 1
+                    Waifu_Bild = Waifu_Bildliste[Waifu_Index]
+                else: 
+                    print(1)
+                    Waifu_Bild = Waifu_Bildliste[Waifu_Index]
+                    Waifu_Index = 0
+                
+
+                
+                
+                
+                
+                
+
+                
+            if event.key == pygame.K_SPACE and Aktives_Spiel == False:
+                Aktives_Spiel = True
+                pipe_list.clear()
+                Waifu_Hitbox.center = (100, 512)
+                Waifu_Bewegung = 0
+                Waifu_Index = 0
+                Hintergrund_Musik.play()
+
+        # Generierung eines neues Hindernisses durch den "Timer"
         if event.type == SPAWNPIPE:
-            pipe_list.extend(create_pipe()) 
+            pipe_list.extend(create_pipe())
+
+
+        
 # ____________________________________________________________________________________________________
 
 
 
     # Hintergrund wird an der oberen linken Ecke verankert.
     Bildschirm.blit(Hintergrund, (0, 0))
+# ____________________________________________________________________________________________________
 
-    # Waifu Interaktionen nach unten und oben
-    Waifu_Bewegung += Schwerkraft
-    Waifu_Hitbox.centery += Waifu_Bewegung
-    Bildschirm.blit(Waifu_Bild, Waifu_Hitbox)
-    check_collision()
+    
+    if Aktives_Spiel == True:
+        # Waifu Interaktionen nach unten und oben
+        Waifu_Bewegung += Schwerkraft
+        Waifu_Rotiert = Waifu_Rotation(Waifu_Bild)
+        Waifu_Hitbox.centery += Waifu_Bewegung
+        Bildschirm.blit(Waifu_Rotiert, Waifu_Hitbox)
+        Aktives_Spiel = check_collision(pipe_list)
+        Waifu_Bild = Waifu_Bildliste[Waifu_Index]
 
-    # Hindernisse nach links laufen lassen
-    pipe_list = move_pipes(pipe_list)
-    draw_pipes(pipe_list)
+        # Hindernisse nach links laufen lassen
+        pipe_list = move_pipes(pipe_list)
+        draw_pipes(pipe_list)
+        
 
-    # Vordergrund nach links laufen lassen
+    
+# ____________________________________________________________________________________________________
+    
+    # Vordergrund nach links laufen lassen (soll immer laufen!)
     Vordergrund_Start -= 1
     Vordergrund_Bewegung()
 
