@@ -14,7 +14,7 @@ pygame.mixer.init(48000, -16, 1, 1024)
 # Funktion, die den Bildschirm loopt
 def Vordergrund_Bewegung():
     Bildschirm.blit(Vordergrund, (Vordergrund_Start, 900))  # Bei neuer Größe auch ÄNDERN------
-    Bildschirm.blit(Vordergrund, (Vordergrund_Start + 576, 900))  # Bei neuer Größe auch ÄNDERN------
+    Bildschirm.blit(Vordergrund, (Vordergrund_Start +672 , 900))  # Bei neuer Größe auch ÄNDERN------
 # ____________________________________________________________________________________________________
 
 
@@ -128,7 +128,7 @@ Highscore_Punkte = 0
 # Laden und vergroessern der Bilder
 Hintergrund = pygame.image.load('assets/background-japan.png')
 Hintergrund = pygame.transform.scale(Hintergrund, (576,1024)).convert()
-Vordergrund = pygame.image.load('assets/gelaender.png')
+Vordergrund = pygame.image.load('assets/Vordergrund_Base.png')
 #Vordergrund = pygame.transform.scale(Vordergrund, (224,672)).convert_alpha()
 # Definition von Bewegungsmodifikator
 Vordergrund_Start = 0
