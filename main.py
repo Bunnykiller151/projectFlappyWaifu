@@ -82,16 +82,16 @@ def Test_Index():
 #Zeichnen der Spielpunkte und Highscores im Spiel und im Menu
 def score_display(Umgebung):
     if Umgebung == 'Spiel':
-        Punkte_Tafel =  Spieltext.render('Punkte: ' + str(int(Punkte)),True,(0,0,0)) # Punkte in der Farbe XX in dem Textstil des Spieles
-        Punkte_posi = Punkte_Tafel.get_rect(center= (288,200)) # Positionierung der Punkte
+        Punkte_Tafel =  Spieltext.render('Punkte: ' + str(int(Punkte)),True,(255,255,255)) # Punkte in der Farbe XX in dem Textstil des Spieles
+        Punkte_posi = Punkte_Tafel.get_rect(center= (288,100)) # Positionierung der Punkte
         Bildschirm.blit(Punkte_Tafel, Punkte_posi)
     if Umgebung == 'Menu':
-        Punkte_Tafel =  Spieltext.render('Punkte: ' + str(int(Punkte)),True,(0,0,0)) # Punkte in der Farbe XX in dem Textstil des Spieles
-        Punkte_posi = Punkte_Tafel.get_rect(center= (288,200)) # Positionierung der Punkte
+        Punkte_Tafel =  Spieltext.render('Punkte: ' + str(int(Punkte)),True,(255,255,255)) # Punkte in der Farbe XX in dem Textstil des Spieles
+        Punkte_posi = Punkte_Tafel.get_rect(center= (288,150)) # Positionierung der Punkte
         Bildschirm.blit(Punkte_Tafel, Punkte_posi)
 
-        Highscore_Tafel = Spieltext.render('Highscore: '+  str(int(Highscore_Punkte)),True,(0,0,0))
-        Highscore_posi = Highscore_Tafel.get_rect(center= (288,250)) # Positionierung der Punkte
+        Highscore_Tafel = Spieltext.render('Highscore: '+  str(int(Highscore_Punkte)),True,(255,255,255))
+        Highscore_posi = Highscore_Tafel.get_rect(center= (288,200)) # Positionierung der Punkte
         Bildschirm.blit(Highscore_Tafel, Highscore_posi)
     
 # ____________________________________________________________________________________________________
@@ -149,7 +149,7 @@ Waifu_Hitbox = Waifu_Bild.get_rect(center=(100, 512))# Rechteck um Waifu Bild
 
 
 # Laden und vergroessern der Hindernisse
-pipe_surface = pygame.image.load('assets/pipe-green.png')
+pipe_surface = pygame.image.load('assets/towerofyum.png')
 pipe_surface = pygame.transform.scale2x(pipe_surface)
 
 # Hindernissliste für Zufallspawn
@@ -187,13 +187,10 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and Aktives_Spiel == True:
                 Waifu_Bewegung = 0
-                Waifu_Bewegung -= 6 #Höhe der Sprünge von Waifu"
-                Sprung_Sound.play()
+                Waifu_Bewegung -= 6 # Höhe der Sprünge von Waifu"
+                Sprung_Sound.play() # Start des Sprungsounds
                 
-
-
-
-                #Spring Animation
+                #Spring Animation - nicht auswirkend implementiert.
                 if Waifu_Index < 1:
                     Waifu_Sprung = pygame.time.get_ticks()
                     
@@ -207,7 +204,7 @@ while True:
 
                 
             if event.key == pygame.K_SPACE and Aktives_Spiel == False: # Spiel Neustart
-                Hintergrund_Musik.play()
+                Hintergrund_Musik.play() # Hintergrund Musik wird gestartet
                 Aktives_Spiel = True
                 pipe_list.clear()
                 Waifu_Hitbox.center = (100, 512)
