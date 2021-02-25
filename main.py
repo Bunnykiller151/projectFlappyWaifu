@@ -14,7 +14,7 @@ pygame.mixer.init(48000, -16, 1, 1024)
 # Funktion, die den Bildschirm loopt
 def Vordergrund_Bewegung():
     Bildschirm.blit(Vordergrund, (Vordergrund_Start, 900))  # Bei neuer Größe auch ÄNDERN------
-    Bildschirm.blit(Vordergrund, (Vordergrund_Start +672 , 900))  # Bei neuer Größe auch ÄNDERN------
+    Bildschirm.blit(Vordergrund, (Vordergrund_Start + 576, 900))  # Bei neuer Größe auch ÄNDERN------
 # ____________________________________________________________________________________________________
 
 
@@ -83,15 +83,15 @@ def Test_Index():
 def score_display(Umgebung):
     if Umgebung == 'Spiel':
         Punkte_Tafel =  Spieltext.render('Punkte: ' + str(int(Punkte)),True,(0,0,0)) # Punkte in der Farbe XX in dem Textstil des Spieles
-        Punkte_posi = Punkte_Tafel.get_rect(center= (288,100)) # Positionierung der Punkte
+        Punkte_posi = Punkte_Tafel.get_rect(center= (288,200)) # Positionierung der Punkte
         Bildschirm.blit(Punkte_Tafel, Punkte_posi)
     if Umgebung == 'Menu':
         Punkte_Tafel =  Spieltext.render('Punkte: ' + str(int(Punkte)),True,(0,0,0)) # Punkte in der Farbe XX in dem Textstil des Spieles
-        Punkte_posi = Punkte_Tafel.get_rect(center= (288,100)) # Positionierung der Punkte
+        Punkte_posi = Punkte_Tafel.get_rect(center= (288,200)) # Positionierung der Punkte
         Bildschirm.blit(Punkte_Tafel, Punkte_posi)
 
         Highscore_Tafel = Spieltext.render('Highscore: '+  str(int(Highscore_Punkte)),True,(0,0,0))
-        Highscore_posi = Highscore_Tafel.get_rect(center= (288,150)) # Positionierung der Punkte
+        Highscore_posi = Highscore_Tafel.get_rect(center= (288,250)) # Positionierung der Punkte
         Bildschirm.blit(Highscore_Tafel, Highscore_posi)
     
 # ____________________________________________________________________________________________________
@@ -129,7 +129,7 @@ Highscore_Punkte = 0
 Hintergrund = pygame.image.load('assets/background-japan.png')
 Hintergrund = pygame.transform.scale(Hintergrund, (576,1024)).convert()
 Vordergrund = pygame.image.load('assets/Vordergrund_Base.png')
-#Vordergrund = pygame.transform.scale(Vordergrund, (224,672)).convert_alpha()
+Vordergrund = pygame.transform.scale(Vordergrund,(576,224)).convert_alpha()
 # Definition von Bewegungsmodifikator
 Vordergrund_Start = 0
 # ____________________________________________________________________________________________________
@@ -159,7 +159,7 @@ pygame.time.set_timer(SPAWNPIPE, 2000) # Hindernis, Spawnrate in Millisekunde
 
 pipe_height = [400,600,800] # Höhe bzw. Positionen auf der Y Achse der Hindernisse
 
-Game_Over_Screen = pygame.transform.scale2x(pygame.image.load('assets/message.png')).convert_alpha() # Menubild anzeigen
+Game_Over_Screen = pygame.image.load('assets/menu.png').convert_alpha() # Menubild anzeigen
 Game_Over_Hitbox = Game_Over_Screen.get_rect(center = (288,512)) # Position des Menubildes.
 # ____________________________________________________________________________________________________
 #Musik und Sound einfügen
