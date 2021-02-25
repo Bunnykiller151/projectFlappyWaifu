@@ -150,7 +150,7 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and Aktives_Spiel == True:
                 Waifu_Bewegung = 0
-                Waifu_Bewegung -= 6 #Höhe der Sprünge von Waifu"
+                Waifu_Bewegung -= 10// #Höhe der Sprünge von Waifu"
                 
 
 
