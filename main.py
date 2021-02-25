@@ -126,8 +126,10 @@ Highscore_Punkte = 0
 
 
 # Laden und vergroessern der Bilder
-Hintergrund = pygame.transform.scale2x(pygame.image.load('assets/background-night.png').convert())
-Vordergrund = pygame.transform.scale2x(pygame.image.load('assets/base.png').convert())
+Hintergrund = pygame.image.load('assets/background-japan.png')
+Hintergrund = pygame.transform.scale(Hintergrund, (576,1024)).convert()
+Vordergrund = pygame.image.load('assets/gelaender.png')
+#Vordergrund = pygame.transform.scale(Vordergrund, (224,672)).convert_alpha()
 # Definition von Bewegungsmodifikator
 Vordergrund_Start = 0
 # ____________________________________________________________________________________________________
