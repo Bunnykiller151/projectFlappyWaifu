@@ -22,7 +22,7 @@ def Vordergrund_Bewegung():
 def create_pipe():
     random_pipe_pos = random.choice(pipe_height)
     bottom_pipe = pipe_surface.get_rect(midtop = (700, random_pipe_pos))
-    top_pipe = pipe_surface.get_rect(midbottom = (700, random_pipe_pos - 300))
+    top_pipe = pipe_surface.get_rect(midbottom = (700, random_pipe_pos - 300)) # Groesse des Hindernisses, Spawnort || Platz zwischen Hindernis: hard 300-350 easy
     return bottom_pipe, top_pipe
 # ____________________________________________________________________________________________________
 
@@ -30,7 +30,7 @@ def create_pipe():
 # Hindernisse ggf. bedenken später.  // Für jedes Hinderniss in Hindernisse1 wird die Mitte X um 5 nach links verschoben
 def move_pipes(pipes):
     for pipe in pipes:
-        pipe.centerx -= 4.5
+        pipe.centerx -= 5 # Geschwindigkeit der Hindernisse
     return pipes
 # ____________________________________________________________________________________________________
 
@@ -68,7 +68,7 @@ def check_collision(pipes):
 # ____________________________________________________________________________________________________
 #Bewegung von Waifu beim springen/fallen
 def Waifu_Rotation(Waifu):
-    new_Waifu = pygame.transform.rotozoom(Waifu, -Waifu_Bewegung *5, 1)
+    new_Waifu = pygame.transform.rotozoom(Waifu, -Waifu_Bewegung *5, 1) # Oberflaeche, Rotation, Skallierung
     return new_Waifu
 
 
@@ -79,21 +79,29 @@ def Test_Index():
     print("Index changed to" + Waifu_Index)
 
 # ____________________________________________________________________________________________________
+def score_display():
+    Punkte_Tafel =  Spieltext.render('Punkte: ' + str(Punkte),True,(0,0,0)) # Punkte in der Farbe XX in dem Textstil des Spieles
+    Punkte_posi = Punkte_Tafel.get_rect(center= (288,100)) # Positionierung der Punkte
+    Bildschirm.blit(Punkte_Tafel, Punkte_posi)
+# ____________________________________________________________________________________________________
 
 
 # Initialisierung pygame
 pygame.init()
 # Definition Bildschirmgroesse
-Bildschirm = pygame.display.set_mode((576, 1024))  # 1200,1000 später -------
+Bildschirm = pygame.display.set_mode((576, 1024))  ### 1200,1000 später ###
 # Definieren des Tickers für die Framerate
 Framerate = pygame.time.Clock()
+#Textfont 
+Spieltext = pygame.font.Font("04b_19.ttf",50) # TTF-Format,Groesse
 # ____________________________________________________________________________________________________
 
 
 # Game Variablen
 Schwerkraft = 0.2
 Waifu_Bewegung = 0
-Aktives_Spiel = True
+Aktives_Spiel = False
+Punkte = 0
 # ____________________________________________________________________________________________________
 
 
@@ -125,15 +133,17 @@ pipe_surface = pygame.transform.scale2x(pipe_surface)
 # Hindernissliste für Zufallspawn
 pipe_list = []
 SPAWNPIPE = pygame.USEREVENT
-pygame.time.set_timer(SPAWNPIPE, 1200)
+pygame.time.set_timer(SPAWNPIPE, 2000) # Hindernis, Spawnrate in Millisekunde
 
 pipe_height = [400,600,800]
 # ____________________________________________________________________________________________________
-
+#Musik und Sound einfügen
 Hintergrund_Musik  = pygame.mixer.Sound('assets/Start_Waifu.wav')
-Hintergrund_Musik.set_volume(0.1)
+Hintergrund_Musik.set_volume(0.1) #Lautstärke
 Sprung_Sound = pygame.mixer.Sound('sound/sfx_wing.wav')
-Sprung_Sound.set_volume(0.15)
+Sprung_Sound.set_volume(0.15) #Lautsärke
+# ____________________________________________________________________________________________________
+
 # Wenn das Programm startet, dann ausfuehren
 # Spielanzeige Loop
 while True:
@@ -152,7 +162,7 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and Aktives_Spiel == True:
                 Waifu_Bewegung = 0
-                Waifu_Bewegung -= 10 #Höhe der Sprünge von Waifu"
+                Waifu_Bewegung -= 6 #Höhe der Sprünge von Waifu"
                 Sprung_Sound.play()
                 
 
@@ -217,7 +227,7 @@ while True:
         # Hindernisse nach links laufen lassen
         pipe_list = move_pipes(pipe_list)
         draw_pipes(pipe_list)
-        
+        score_display()
 
     
 # ____________________________________________________________________________________________________
