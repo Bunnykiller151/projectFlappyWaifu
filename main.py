@@ -51,16 +51,21 @@ def draw_pipes(pipes):
 def check_collision(pipes):
     for pipe in pipes:
         if Waifu_Hitbox.colliderect(pipe):
+            Kollision_Sound.play()
             print("coll pipe")
             Hintergrund_Musik.stop()
+            FastHintergrund_Musik.stop()
             return False
+        
         
 # Wenn Waifu gegen Boden/Decke fliegt, wird Game Inactive gesetzt
     if Waifu_Hitbox.top <= -100 or Waifu_Hitbox.bottom >= 900:
         print("coll bottom or top")
+        Kollision_Sound.play()
         Hintergrund_Musik.stop()
+        FastHintergrund_Musik.stop()
         return False
-        
+    
     return True
 
 
@@ -101,6 +106,14 @@ def score_update(Punkte,Highscore_Punkte):
         Highscore_Punkte = Punkte
     return Highscore_Punkte
 
+def Musik_Loop(Spielzeitchecker):
+    print("lol")
+    MUSIKLOOP = pygame.USEREVENT
+    pygame.time.set_timer(MUSIKLOOP, 2000)
+
+    if event.type == MUSIKLOOP and Spielzeitchecker == 0:
+        Hintergrund_Musik.play()
+        #Spielzeitchecker = 1
 
 
 
@@ -122,6 +135,8 @@ Waifu_Bewegung = 0
 Aktives_Spiel = False
 Punkte = 0
 Highscore_Punkte = 0
+check = 0
+Spielzeitchecker = 0
 # ____________________________________________________________________________________________________
 
 
@@ -165,8 +180,13 @@ Game_Over_Hitbox = Game_Over_Screen.get_rect(center = (288,512)) # Position des 
 #Musik und Sound einfügen
 Hintergrund_Musik  = pygame.mixer.Sound('assets/Start_Waifu.wav')
 Hintergrund_Musik.set_volume(0.1) #Lautstärke
+FastHintergrund_Musik = pygame.mixer.Sound('assets/LoopWaifu.wav')
+FastHintergrund_Musik.set_volume(0.1)
 Sprung_Sound = pygame.mixer.Sound('sound/sfx_wing.wav')
 Sprung_Sound.set_volume(0.15) #Lautsärke
+Kollision_Sound = pygame.mixer.Sound('sound/sfx_hit.wav')
+Kollision_Sound.set_volume(0.15) #Lautsärke
+
 # ____________________________________________________________________________________________________
 
 # Wenn das Programm startet, dann ausfuehren
@@ -211,6 +231,9 @@ while True:
                 Waifu_Bewegung = 0
                 Waifu_Index = 0 # evtl ändern / rausnehmen wenn keine Animation
                 Punkte = 0
+                check = 0
+                Spielzeitchecker = pygame.time.get_ticks()
+                
                 
 
         # Generierung eines neues Hindernisses durch den "Timer"
@@ -244,7 +267,7 @@ while True:
         draw_pipes(pipe_list)
 
         #Punkte hochzählen
-        Punkte += 0.0045
+        Punkte += 0.0049
         #Darstellen derzeitige Punktzahl
         score_display('Spiel')
     else:
@@ -255,6 +278,15 @@ while True:
         #Darstellen Punktzahl im Menu
         score_display('Menu')
     
+    print('test')
+    SpielzeitBisNextLevel = pygame.time.get_ticks() - Spielzeitchecker
+    if SpielzeitBisNextLevel >= 103000 and check == 0:
+        check = 1
+        FastHintergrund_Musik.play(loops = -1)
+    
+
+
+        
 
     
 # ____________________________________________________________________________________________________
