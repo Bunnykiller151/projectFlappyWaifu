@@ -1,0 +1,9 @@
+Importiere die Pygame libary, welche essentiell ist für das Spiel, Es ist eine Libary extra für Game Development. 
+Außerdem importieren wir die sys Libary, welche dafür da ist das Programm anständig zu schließen.
+pygame.init um pygame zu initalisieren und es auf  der Variable "bildschirm" erscheinen zulassen, 
+welche nun unsere Canvas zum Zeichnen bildet (inkl. der Größe).
+Um die Canvas dauerhaft anzuzeigen nehmen wir eine while: Schleife. Um kontiernuierliche Bilder anzeigen zu lassen verwenden wir die pygame.display.update() Funktion.
+Diese Schleife kann beendet werden bei einer Usereingabe welche durch die If Abfrage abgerufen wird. Sobald das "X" angeklickt wird beendet wird auch pygame durch pygame.quit() beendet.
+
+
+.convert() konvertiert die Bilder in ein Dateiformat, welches für Pygame besser geeignet ist laut pygame Manual.
