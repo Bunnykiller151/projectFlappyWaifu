@@ -195,13 +195,13 @@ Game_Over_Screen = pygame.image.load('assets/menu.png').convert_alpha() # Menubi
 Game_Over_Hitbox = Game_Over_Screen.get_rect(center = (288,512)) # Position des Menubildes.
 # ____________________________________________________________________________________________________
 #Musik und Sound einfügen
-Hintergrund_Musik  = pygame.mixer.Sound('assets/Start_Waifu.wav')
+Hintergrund_Musik  = pygame.mixer.Sound('sound/Start_Waifu.wav')
 Hintergrund_Musik.set_volume(0.1) #Lautstärke
-FastHintergrund_Musik = pygame.mixer.Sound('assets/LoopWaifu.wav')
+FastHintergrund_Musik = pygame.mixer.Sound('sound/LoopWaifu.wav')
 FastHintergrund_Musik.set_volume(0.1)
 Sprung_Sound = pygame.mixer.Sound('sound/sfx_wing.wav')
 Sprung_Sound.set_volume(0.15) #Lautsärke
-Kollision_Sound = pygame.mixer.Sound('sound/sfx_hit.wav')
+Kollision_Sound = pygame.mixer.Sound('sound/ouch.wav')
 Kollision_Sound.set_volume(0.15) #Lautsärke
 
 # ____________________________________________________________________________________________________
