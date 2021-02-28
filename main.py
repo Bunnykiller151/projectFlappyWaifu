@@ -148,7 +148,7 @@ Geschwindigkeit_Hindernis = 5
 SpielzeitBisNextLevel = 0
 Zeitcheck = 0
 InMenu = 0
-
+Alive = True
 
 # ____________________________________________________________________________________________________
 
@@ -257,19 +257,19 @@ while True:
                 Spielzeitchecker = 0
                 Geschwindigkeit_Hindernis = 5 # Zuruecksetzen Anfangsgeschwindigkeit
                 Startzeit = int(time.time()) # Neue Startzeit definieren
-                
+                Alive = True
                 
 
 
             # Pause Button
-            if event.key == pygame.K_ESCAPE and Aktives_Spiel == True:
+            if event.key == pygame.K_ESCAPE and Alive == True and Aktives_Spiel == True:
                 Aktives_Spiel = False
                 Waifu_Bewegung = 0
                 Geschwindigkeit_Hindernis = 0
                 Schwerkraft = 0
                 InMenu = 1
             # Resume Button
-            elif event.key == pygame.K_ESCAPE and Aktives_Spiel == False:
+            elif event.key == pygame.K_ESCAPE and Alive == True and Aktives_Spiel == False:
                     Aktives_Spiel = True
                     if check == 0:
                         Geschwindigkeit_Hindernis = 5
@@ -309,6 +309,7 @@ while True:
         Waifu_Hitbox.centery += Waifu_Bewegung
         Bildschirm.blit(Waifu_Rotiert, Waifu_Hitbox)
         Aktives_Spiel = check_collision(pipe_list)
+        Alive = check_collision(pipe_list)
         Waifu_Bild = Waifu_Bildliste[Waifu_Index]
 
         # Hindernisse nach links laufen lassen
@@ -321,6 +322,7 @@ while True:
         # Errechnung der aktuellen Spielzeit fuer die Schwierigkeitsstufen
         Spielzeitchecker = int(time.time())
         Aktuelle_Spielzeit = Spielzeitchecker - Startzeit
+        
     else:
         #Game Over Screen anzeigen
         Bildschirm.blit(Game_Over_Screen, Game_Over_Hitbox)
