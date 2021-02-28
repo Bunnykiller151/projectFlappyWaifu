@@ -107,6 +107,7 @@ def score_display(Umgebung):
 def score_update(Punkte,Highscore_Punkte):
     if Punkte > Highscore_Punkte:
         Highscore_Punkte = Punkte
+        Highscore_Sound.play()
     return Highscore_Punkte
 
 def Musik_Loop(Spielzeitchecker):
@@ -202,7 +203,9 @@ FastHintergrund_Musik.set_volume(0.1)
 Sprung_Sound = pygame.mixer.Sound('sound/sfx_wing.wav')
 Sprung_Sound.set_volume(0.15) #Lautsärke
 Kollision_Sound = pygame.mixer.Sound('sound/ouch.wav')
-Kollision_Sound.set_volume(0.15) #Lautsärke
+Kollision_Sound.set_volume(0.25) #Lautsärke
+Highscore_Sound = pygame.mixer.Sound('sound/highscore_wow.wav')
+Highscore_Sound.set_volume(0.15)
 
 # ____________________________________________________________________________________________________
 
