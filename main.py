@@ -1,3 +1,5 @@
+from kivymd.app import MDApp
+from kivy.lang import Builder
 # Bibliothek pygame importieren
 import pygame
 # Bibliothek sys importieren
