@@ -168,7 +168,7 @@ Waifu_Hitbox = Waifu_Bild.get_rect(center=(100, 512))# Rechteck um Waifu Bild
 
 # Laden und vergroessern der Cups
 cup_surface = pygame.image.load('assets/towerofyum.png')
-cup_surface = pygame.transform.scale2x(cup_surface)
+# cup_surface = pygame.transform.scale2x(cup_surface)
 
 
 cup_list = [] # Cupliste für Zufallsspawn 
