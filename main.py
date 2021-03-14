@@ -1,4 +1,3 @@
-
 # Bibliothek pygame importieren
 import pygame
 # Bibliothek sys importieren
@@ -12,7 +11,8 @@ import random
 # Initialisieren des Soundmixers
 pygame.mixer.init(48000, -16, 1, 1024)
 
-# Funktion, die das Geländer erstellt.
+# Funktion, die den Bildschirm loopt
+# Erstellt von Can und Pascal
 def Vordergrund_Bewegung():
     Bildschirm.blit(Vordergrund, (Vordergrund_Start, 900))  # Vordergrund linker Teil
     Bildschirm.blit(Vordergrund, (Vordergrund_Start + 576, 900))  # Vordergrund rechter Teil
@@ -20,6 +20,7 @@ def Vordergrund_Bewegung():
 
 
 # Funktion, die Cups eine Hitbox gibt und generiert
+# Erstellt von Can und Pascal
 def create_cup():
     random_cup_pos = random.choice(cup_height)
     bottom_cup = cup_surface.get_rect(midtop = (700, random_cup_pos))
@@ -29,6 +30,7 @@ def create_cup():
 
 
 # Für jeden Cup in Cups werden die Cups um "Geschwindigkeit_Cups" nach links verschoben
+# Erstellt von Can und Pascal
 def move_cups(cups):
     for cup in cups:
         cup.centerx -= Geschwindigkeit_Cups # Geschwindigkeit der Cups
@@ -37,6 +39,7 @@ def move_cups(cups):
 
 
 # Cups werden gezeichnet auf der Canvas Bildschirm, durch die flip_cup funktion wird die Cup um 180° gedreht
+# Erstellt von Can und Pascal
 def draw_cups(cups):
     for cup in cups:
         if cup.bottom >= 1024:
@@ -49,12 +52,12 @@ def draw_cups(cups):
 
 
 # Waifu Kollision Check
+# Erstellt von Can und Pascal
 def check_collision(cups):
     for cup in cups:
         # Wenn Waifu gegen Cup fliegt, wird Game gestoppt
         if Waifu_Hitbox.colliderect(cup):
             Kollision_Sound.play()
-            print("coll cup")
             Hintergrund_Musik.stop()
             FastHintergrund_Musik.stop()
 
@@ -62,7 +65,6 @@ def check_collision(cups):
             
 # Wenn Waifu gegen Boden/Decke fliegt, wird Game gestoppt
     if Waifu_Hitbox.top <= -100 or Waifu_Hitbox.bottom >= 900:
-        print("coll bottom or top")
         Kollision_Sound.play()
         Hintergrund_Musik.stop()
         FastHintergrund_Musik.stop()
@@ -74,6 +76,7 @@ def check_collision(cups):
 
 
 #Bewegung von Waifu beim springen/fallen
+# Erstellt von Can und Pascal
 def Waifu_Rotation(Waifu):
     new_Waifu = pygame.transform.rotozoom(Waifu, -Waifu_Bewegung *5, 1) # Oberflaeche, Rotation, Skallierung
     return new_Waifu
@@ -81,14 +84,15 @@ def Waifu_Rotation(Waifu):
 
 
 #Zeichnen der Spielpunkte und Highscores im Spiel und im Menu
+# Erstellt von Can und Pascal
 def score_display(Umgebung):
     if Umgebung == 'Spiel':
-        Punkte_Tafel =  Spieltext.render('Punkte: ' + str(int(Punkte)),True,(255,255,255)) # Punkte in der Farbe Weiß in dem Textstil des Spieles
+        Punkte_Tafel =  Spieltext.render('Punkte: ' + str(int(Punkte)),True,(255,255,255)) # Punkte in der Farbe XX in dem Textstil des Spieles
         Punkte_posi = Punkte_Tafel.get_rect(center= (288,100)) # Positionierung der Punkte
         Bildschirm.blit(Punkte_Tafel, Punkte_posi)
     # Wenn der Spieler
     if Umgebung == 'Menu':
-        Punkte_Tafel =  Spieltext.render('Punkte: ' + str(int(Punkte)),True,(255,255,255)) # Punkte in der Farbe Weiß in dem Textstil des Spieles
+        Punkte_Tafel =  Spieltext.render('Punkte: ' + str(int(Punkte)),True,(255,255,255)) # Punkte in der Farbe XX in dem Textstil des Spieles
         Punkte_posi = Punkte_Tafel.get_rect(center= (288,150)) # Positionierung der Punkte
         Bildschirm.blit(Punkte_Tafel, Punkte_posi)
         Highscore_Tafel = Spieltext.render('Highscore: '+  str(int(Highscore_Punkte)),True,(255,255,255))
@@ -97,23 +101,15 @@ def score_display(Umgebung):
 # ____________________________________________________________________________________________________
 
 
+# Aktualisieren des Highscores wenn Punktzahl höher ist
+# Erstellt von Can und Pascal
 def score_update(Punkte,Highscore_Punkte):
     if Punkte > Highscore_Punkte:
         Highscore_Punkte = Punkte
         Highscore_Sound.play()
     return Highscore_Punkte
 # ____________________________________________________________________________________________________
-
-
-# def Musik_Loop(Spielzeitchecker):
-#     print("lol")
-#     MUSIKLOOP = pygame.USEREVENT
-#     pygame.time.set_timer(MUSIKLOOP, 2000)
-
-#     if event.type == MUSIKLOOP and Spielzeitchecker == 0:
-#         Hintergrund_Musik.play()
-# ____________________________________________________________________________________________________
-
+# Erstellt von Can und Pascal
 
 # Initialisierung pygame
 pygame.init()
@@ -124,7 +120,7 @@ Framerate = pygame.time.Clock()
 #Textfont 
 Spieltext = pygame.font.Font("Stay_and_Shine.ttf",50) # Spiele Textstil festlegen als TTF-Format,Groesse
 # ____________________________________________________________________________________________________
-
+# Erstellt von Can und Pascal
 
 # Game Variablen
 Schwerkraft = 0.2
@@ -141,18 +137,17 @@ SpielzeitBisNextLevel = 0
 Zeitcheck = 0
 InMenu = 0
 Alive = True
+Vordergrund_Start = 0
 # ____________________________________________________________________________________________________
-
+# Erstellt von Can und Pascal
 
 # Laden und vergroessern der Bilder
 Hintergrund = pygame.image.load('assets/background-japan.png')
 Hintergrund = pygame.transform.scale(Hintergrund, (576,1024)).convert()
 Vordergrund = pygame.image.load('assets/Vordergrund_Base.png')
 Vordergrund = pygame.transform.scale(Vordergrund,(576,224)).convert_alpha()
-# Definition von Bewegungsmodifikator
-Vordergrund_Start = 0
 # ____________________________________________________________________________________________________
-
+# Erstellt von Can und Pascal
 
 # Laden und vergroessern des Spielers
 Waifu_Bildrunter = pygame.image.load('assets/Waifu_cut_test2.png')
@@ -164,7 +159,7 @@ Waifu_Index = 0
 Waifu_Bild = Waifu_Bildliste[Waifu_Index]
 Waifu_Hitbox = Waifu_Bild.get_rect(center=(100, 512))# Rechteck um Waifu Bild
 # ____________________________________________________________________________________________________
-
+# Erstellt von Can und Pascal
 
 # Laden und vergroessern der Cups
 cup_surface = pygame.image.load('assets/towerofyum.png')
@@ -184,7 +179,7 @@ cup_height = [400,600,800] # Höhe bzw. Positionen auf der Y Achse der Cups
 Game_Over_Screen = pygame.image.load('assets/menu.png').convert_alpha() # Menubild anzeigen
 Game_Over_Hitbox = Game_Over_Screen.get_rect(center = (288,512)) # Position des Menubildes.
 # ____________________________________________________________________________________________________
-
+# Erstellt von Can und Pascal
 
 # Musik und Sound einfügen
 Hintergrund_Musik  = pygame.mixer.Sound('sound/Start_Waifu.wav')
@@ -198,7 +193,7 @@ Kollision_Sound.set_volume(0.25) # Lautsärke
 Highscore_Sound = pygame.mixer.Sound('sound/highscore_wow.wav')
 Highscore_Sound.set_volume(0.15)
 # ____________________________________________________________________________________________________
-
+# Erstellt von Can und Pascal
 
 # Wenn das Programm startet, dann ausfuehren
 # Spielanzeige Loop
@@ -206,15 +201,14 @@ while True:
 
     # Darstellung von allen Eingaben des Users oder Timer
     for event in pygame.event.get():
-
-
         # Wenn Fenster geschlossen wird, Programm schließen
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
 # ____________________________________________________________________________________________________
+# Erstellt von Can und Pascal
 
-
+        # Events bei Tastendruck
         if event.type == pygame.KEYDOWN:
             # Wenn Space gedrückt wird, springt "Waifu"
             if event.key == pygame.K_SPACE and InMenu == 0 and Aktives_Spiel == True:
@@ -251,7 +245,6 @@ while True:
                 Alive = True
                 
 
-
             # Pause Button
             if event.key == pygame.K_ESCAPE and Alive == True and Aktives_Spiel == True:
                 Aktives_Spiel = False
@@ -275,7 +268,7 @@ while True:
                     Schwerkraft = 0.2 # Schwerkraft aktivieren
                     InMenu = 0 # Menue deaktivieren
 # ____________________________________________________________________________________________________
-     
+# Erstellt von Can und Pascal
 
         # Generierung eines neues Cups durch Userevent
         if event.type == SPAWNCUP and InMenu == 0 and Aktives_Spiel == True:
@@ -285,13 +278,14 @@ while True:
         if event.type == NEUERPUNKT and InMenu == 0 and Aktives_Spiel == True:
             Punkte += 1
 # ____________________________________________________________________________________________________
-
+# Erstellt von Can und Pascal
 
     # Hintergrund wird an der oberen linken Ecke verankert.
     Bildschirm.blit(Hintergrund, (0, 0))
 # ____________________________________________________________________________________________________
+# Erstellt von Can und Pascal
 
-    
+    # Allgemeine Spielumgebung wenn Spiel läuft
     if Aktives_Spiel == True:
 
         # Waifu Interaktionen nach unten und oben
@@ -313,7 +307,8 @@ while True:
         # Errechnung der aktuellen Spielzeit fuer die Schwierigkeitsstufen
         Spielzeitchecker = int(time.time())
         Aktuelle_Spielzeit = Spielzeitchecker - Startzeit
-        
+    
+    # Anzeige wenn kein Aktives Spiel läuft
     else:
         # Game Over Screen anzeigen
         Bildschirm.blit(Game_Over_Screen, Game_Over_Hitbox)
@@ -322,7 +317,7 @@ while True:
         # Darstellen Punktzahl im Menu
         score_display('Menu')
 # ____________________________________________________________________________________________________
-  
+# Erstellt von Can und Pascal
 
     # Wenn erste Stage beendet, dann Übergang
     if Aktuelle_Spielzeit >= 59.5 and check == 0: # Wenn Spielzeit > X-Sekunden & mit einmaliger Ausführung
@@ -344,16 +339,17 @@ while True:
         check = 3
         Geschwindigkeit_Cups = 8 # Neue Geschwindigkeit der Cups
 # ____________________________________________________________________________________________________
-
+# Erstellt von Can und Pascal
 
     # Vordergrund nach links laufen lassen (soll immer laufen!)
     Vordergrund_Start -= 1
     Vordergrund_Bewegung()
+
     # Vordergrund verschiebt sich, wenn außerhalb des Bildschirms
     if Vordergrund_Start<=-576:
         Vordergrund_Start = 0
 # ____________________________________________________________________________________________________
-
+# Erstellt von Can und Pascal
 
     # Alles darstellen was in der Schleife laeuft
     pygame.display.update()
