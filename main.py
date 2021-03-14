@@ -12,7 +12,7 @@ import random
 # Initialisieren des Soundmixers
 pygame.mixer.init(48000, -16, 1, 1024)
 
-# Funktion, die den Bildschirm loopt
+# Funktion, die das Geländer erstellt.
 def Vordergrund_Bewegung():
     Bildschirm.blit(Vordergrund, (Vordergrund_Start, 900))  # Vordergrund linker Teil
     Bildschirm.blit(Vordergrund, (Vordergrund_Start + 576, 900))  # Vordergrund rechter Teil
@@ -83,12 +83,12 @@ def Waifu_Rotation(Waifu):
 #Zeichnen der Spielpunkte und Highscores im Spiel und im Menu
 def score_display(Umgebung):
     if Umgebung == 'Spiel':
-        Punkte_Tafel =  Spieltext.render('Punkte: ' + str(int(Punkte)),True,(255,255,255)) # Punkte in der Farbe XX in dem Textstil des Spieles
+        Punkte_Tafel =  Spieltext.render('Punkte: ' + str(int(Punkte)),True,(255,255,255)) # Punkte in der Farbe Weiß in dem Textstil des Spieles
         Punkte_posi = Punkte_Tafel.get_rect(center= (288,100)) # Positionierung der Punkte
         Bildschirm.blit(Punkte_Tafel, Punkte_posi)
     # Wenn der Spieler
     if Umgebung == 'Menu':
-        Punkte_Tafel =  Spieltext.render('Punkte: ' + str(int(Punkte)),True,(255,255,255)) # Punkte in der Farbe XX in dem Textstil des Spieles
+        Punkte_Tafel =  Spieltext.render('Punkte: ' + str(int(Punkte)),True,(255,255,255)) # Punkte in der Farbe Weiß in dem Textstil des Spieles
         Punkte_posi = Punkte_Tafel.get_rect(center= (288,150)) # Positionierung der Punkte
         Bildschirm.blit(Punkte_Tafel, Punkte_posi)
         Highscore_Tafel = Spieltext.render('Highscore: '+  str(int(Highscore_Punkte)),True,(255,255,255))
@@ -349,7 +349,6 @@ while True:
     # Vordergrund nach links laufen lassen (soll immer laufen!)
     Vordergrund_Start -= 1
     Vordergrund_Bewegung()
-
     # Vordergrund verschiebt sich, wenn außerhalb des Bildschirms
     if Vordergrund_Start<=-576:
         Vordergrund_Start = 0
