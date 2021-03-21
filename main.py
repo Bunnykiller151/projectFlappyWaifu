@@ -128,13 +128,13 @@ Waifu_Bewegung = 0
 Aktives_Spiel = False
 Punkte = 0
 Highscore_Punkte = 0
-check = 0
+Stage_Check = 0
 Startzeit = int(time.time())
 Spielzeitchecker = 0
 Aktuelle_Spielzeit = 0
 Geschwindigkeit_Cups = 5
-SpielzeitBisNextLevel = 0
-Zeitcheck = 0
+Spielzeit_BisNextLevel = 0
+Zeit_Check = 0
 InMenu = 0
 Alive = True
 Vordergrund_Start = 0
@@ -237,7 +237,7 @@ while True:
                 Waifu_Bewegung = 0
                 Waifu_Index = 0 
                 Punkte = 0
-                check = 0
+                Stage_Check = 0
                 Aktuelle_Spielzeit = 0
                 Spielzeitchecker = 0
                 Geschwindigkeit_Cups = 5 # Zuruecksetzen Anfangsgeschwindigkeit
@@ -257,13 +257,13 @@ while True:
             elif event.key == pygame.K_ESCAPE and Alive == True and Aktives_Spiel == False:
                     Aktives_Spiel = True
                     # Setzen der derzeitigen Geschwindigkeit
-                    if check == 0:
+                    if Stage_Check == 0:
                         Geschwindigkeit_Cups = 5
-                    elif check == 1:
+                    elif Stage_Check == 1:
                         Geschwindigkeit_Cups = 6
-                    elif check == 2:
+                    elif Stage_Check == 2:
                         Geschwindigkeit_Cups = 7
-                    elif check == 3:
+                    elif Stage_Check == 3:
                         Geschwindigkeit_Cups = 8
                     Schwerkraft = 0.2 # Schwerkraft aktivieren
                     InMenu = 0 # Menue deaktivieren
@@ -320,8 +320,8 @@ while True:
 # Erstellt von Can und Pascal
 
     # Wenn erste Stage beendet, dann Übergang
-    if Aktuelle_Spielzeit >= 59.5 and check == 0: # Wenn Spielzeit > X-Sekunden & mit einmaliger Ausführung
-        check = 1
+    if Aktuelle_Spielzeit >= 59.5 and Stage_Check == 0: # Wenn Spielzeit > X-Sekunden & mit einmaliger Ausführung
+        Stage_Check = 1
         Hintergrund_Musik.stop()
         FastHintergrund_Musik.stop()
         FastHintergrund_Musik.play(loops = -1) # Dauerloop für Musik
@@ -329,14 +329,14 @@ while True:
         
     
     # Wenn zweite Stage beendet, dann Übergang
-    if Aktuelle_Spielzeit >= 119 and check == 1:
-        check = 2
+    if Aktuelle_Spielzeit >= 119 and Stage_Check == 1:
+        Stage_Check = 2
         Geschwindigkeit_Cups = 7 # Neue Geschwindigkeit der Cups
         
 
     # Wenn dritte Stage beendet, dann Übergang
-    if Aktuelle_Spielzeit >= 178.5 and check == 2:
-        check = 3
+    if Aktuelle_Spielzeit >= 178.5 and Stage_Check == 2:
+        Stage_Check = 3
         Geschwindigkeit_Cups = 8 # Neue Geschwindigkeit der Cups
 # ____________________________________________________________________________________________________
 # Erstellt von Can und Pascal
