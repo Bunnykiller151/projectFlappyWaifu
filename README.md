@@ -2,9 +2,9 @@
 
 Minispiel für PC, bei dem der Spieler mit der Spielfigur namens Waifu Gegenständen ausweichen muss.
 
-![chitanda_flappy](https://user-images.githubusercontent.com/71191570/111065474-487f0700-84ba-11eb-87ad-9933ed990ad9.png)
+![Chitanda_main](https://user-images.githubusercontent.com/68156445/111909755-d5980200-8a5e-11eb-94b4-6da2fbc27ae3.png)
 
-
+![Flow_Chart](https://user-images.githubusercontent.com/68156445/111909780-e6e10e80-8a5e-11eb-894e-c4e1c48cd2ad.png)
 
 Ein Spiel entwickelt von Can-Luca Guiseppe Russo und Pascal Ziesemann.
 
