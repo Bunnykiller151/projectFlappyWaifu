@@ -6,6 +6,7 @@ import sys
 import time
 # Importiere Random Libary 
 import random
+
 # ____________________________________________________________________________________________________
 
 # Initialisieren des Soundmixers
@@ -118,7 +119,7 @@ Bildschirm = pygame.display.set_mode((576, 1024))
 # Definieren des Tickers für die Framerate
 Framerate = pygame.time.Clock()
 #Textfont 
-Spieltext = pygame.font.Font("Stay_and_Shine.ttf",50) # Spiele Textstil festlegen als TTF-Format,Groesse
+Spieltext = pygame.font.Font("bin/Stay_and_Shine.ttf",50) # Spiele Textstil festlegen als TTF-Format,Groesse
 # ____________________________________________________________________________________________________
 # Erstellt von Can und Pascal
 
@@ -142,17 +143,17 @@ Vordergrund_Start = 0
 # Erstellt von Can und Pascal
 
 # Laden und vergroessern der Bilder
-Hintergrund = pygame.image.load('assets/background-japan.png')
+Hintergrund = pygame.image.load('bin/assets/background-japan.png')
 Hintergrund = pygame.transform.scale(Hintergrund, (576,1024)).convert()
-Vordergrund = pygame.image.load('assets/Vordergrund_Base.png')
+Vordergrund = pygame.image.load('bin/assets/Vordergrund_Base.png')
 Vordergrund = pygame.transform.scale(Vordergrund,(576,224)).convert_alpha()
 # ____________________________________________________________________________________________________
 # Erstellt von Can und Pascal
 
 # Laden und vergroessern des Spielers
-Waifu_Bildrunter = pygame.image.load('assets/Waifu_cut_test2.png')
+Waifu_Bildrunter = pygame.image.load('bin/assets/Waifu_cut_test2.png')
 Waifu_Bildrunter = pygame.transform.scale(Waifu_Bildrunter,(68,68)).convert_alpha()
-Waifu_Bildhoch = pygame.image.load('assets/Waifu_cut_test2.png')
+Waifu_Bildhoch = pygame.image.load('bin/assets/Waifu_cut_test2.png')
 Waifu_Bildhoch = pygame.transform.scale(Waifu_Bildrunter,(68,68)).convert_alpha()
 Waifu_Bildliste = [Waifu_Bildrunter,Waifu_Bildhoch]
 Waifu_Index = 0
@@ -162,7 +163,7 @@ Waifu_Hitbox = Waifu_Bild.get_rect(center=(100, 512))# Rechteck um Waifu Bild
 # Erstellt von Can und Pascal
 
 # Laden und vergroessern der Cups
-cup_surface = pygame.image.load('assets/towerofyum.png')
+cup_surface = pygame.image.load('bin/assets/towerofyum.png')
 # cup_surface = pygame.transform.scale2x(cup_surface)
 
 
@@ -176,21 +177,21 @@ pygame.time.set_timer(NEUERPUNKT, 2000) # Zaehlen aufrufen, Aufrufrate in Millis
 
 cup_height = [400,600,800] # Höhe bzw. Positionen auf der Y Achse der Cups
 
-Game_Over_Screen = pygame.image.load('assets/menu.png').convert_alpha() # Menubild anzeigen
+Game_Over_Screen = pygame.image.load('bin/assets/menu.png').convert_alpha() # Menubild anzeigen
 Game_Over_Hitbox = Game_Over_Screen.get_rect(center = (288,512)) # Position des Menubildes.
 # ____________________________________________________________________________________________________
 # Erstellt von Can und Pascal
 
-# Musik und Sound einfügen
-Hintergrund_Musik  = pygame.mixer.Sound('sound/Start_Waifu.wav')
+# Musik und bin/sound einfügen
+Hintergrund_Musik  = pygame.mixer.Sound('bin/sound/Start_Waifu.wav')
 Hintergrund_Musik.set_volume(0.1) # Lautstärke
-FastHintergrund_Musik = pygame.mixer.Sound('sound/LoopWaifu.wav')
+FastHintergrund_Musik = pygame.mixer.Sound('bin/sound/LoopWaifu.wav')
 FastHintergrund_Musik.set_volume(0.1)
-Sprung_Sound = pygame.mixer.Sound('sound/sfx_wing.wav')
+Sprung_Sound = pygame.mixer.Sound('bin/sound/sfx_wing.wav')
 Sprung_Sound.set_volume(0.15) # Lautsärke
-Kollision_Sound = pygame.mixer.Sound('sound/ouch.wav')
+Kollision_Sound = pygame.mixer.Sound('bin/sound/ouch.wav')
 Kollision_Sound.set_volume(0.25) # Lautsärke
-Highscore_Sound = pygame.mixer.Sound('sound/highscore_wow.wav')
+Highscore_Sound = pygame.mixer.Sound('bin/sound/highscore_wow.wav')
 Highscore_Sound.set_volume(0.15)
 # ____________________________________________________________________________________________________
 # Erstellt von Can und Pascal

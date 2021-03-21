@@ -5,7 +5,8 @@ executables = [cx_Freeze.Executable("main.py")]
 cx_Freeze.setup(
     name="Flappy Waifu",
     options={"build_exe": {"packages":["pygame, time, sys, random"],
-                           "include_files":["racecar.png"]}},
+                           "include_files":["bin/"]}},
     executables = executables
 
     )
+
