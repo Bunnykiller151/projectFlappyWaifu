@@ -20,7 +20,7 @@ Zu 2): Falls eine Settings.Json Datei im .vscode existiert, diese bitte vorher l
 
 -------------------------------------------------
 
-Ein Spiel entwickelt von Can-Luca Guiseppe Russo und Pascal Ziesemann.
+Ein Spiel entwickelt von Can-Luca Giuseppe Russo und Pascal Ziesemann.
 
 Projektrealisierung des Wahlkurses Programmierung in Python bei Prof. Dr. Michael Arnold.
 
