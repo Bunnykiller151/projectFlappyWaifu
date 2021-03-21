@@ -11,6 +11,7 @@ import random
 
 # Initialisieren des Soundmixers
 pygame.mixer.init(48000, -16, 1, 1024)
+Titel_Programm = pygame.display.set_caption('Flappy Waifu') #Programm Titel.
 
 # Funktion, die den Bildschirm loopt
 # Erstellt von Can und Pascal
