@@ -2,9 +2,14 @@
 
 Flappy Waifu ist ein Minispiel für PC, bei dem der Spieler mit der Spielfigur namens Waifu Gegenständen ausweichen muss.
 
-![Chitanda_main](https://user-images.githubusercontent.com/68156445/111909755-d5980200-8a5e-11eb-94b4-6da2fbc27ae3.png)
+<p align="center">
+  <img align="center" src="https://user-images.githubusercontent.com/68156445/111909755-d5980200-8a5e-11eb-94b4-6da2fbc27ae3.png" alt = "Chitanda_Eru">
+</p>
 
-![Flow_Chart](https://user-images.githubusercontent.com/68156445/111909780-e6e10e80-8a5e-11eb-894e-c4e1c48cd2ad.png)
+
+<p align="center">
+  <img align="center" src="https://user-images.githubusercontent.com/68156445/111909780-e6e10e80-8a5e-11eb-894e-c4e1c48cd2ad.png" alt = "Flow_Chart">
+</p>
 
 
 -------------------------------------------------
