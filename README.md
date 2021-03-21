@@ -11,6 +11,7 @@ Flappy Waifu ist ein Minispiel für PC, bei dem der Spieler mit der Spielfigur n
 
 HINWEIS: Zum Ausführen der Software gibt es zwei Wege. 1: Die von uns  zur Verfügung gestellte gepackte Version herunterladen und unter dem Ordner "dist" die main.exe ausführen (Dabei kann es dazu führen, dass die exe von dem Antivirenprogramm abgefangen wird). 2: Den Ordner bei Github herunterladen und die main.py bei VS code öffnen. Bevor der Code ausgeführt werden kann, muss die Ordnerstruktur bei Code geladen werden. Falls es bei beiden Methoden Probleme geben sollte, können Sie uns kontaktieren.
 
+Zu 2): Falls eine Settings.Json Datei im .vscode existiert, diese bitte vorher löschen, da der Pfad von Can angegeben ist.
 
 -------------------------------------------------
 
